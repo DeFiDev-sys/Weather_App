@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Weather App 🌦️
 
-## Getting Started
+A simple weather web application built using **Next.js (App Router)**, **TypeScript (TSX)**, and **Zustand** for state management. This app fetches real-time weather data using the **WeatherAPI** and automatically detects the user's location using the **Geolocation API**.
 
-First, run the development server:
+## Features 🚀
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 🌍 **Auto-detects user location** and fetches weather data.
+- 🏙️ **Manual city search** for weather updates.
+- 📅 **7-day weather forecast** with detailed conditions.
+- 💾 **LocalStorage support** for persisting data after refresh.
+- 🌡️ **Temperature, humidity, wind speed, and conditions display.**
+- 📱 **Responsive design** for mobile and desktop.
+
+---
+
+## Installation & Setup ⚙️
+
+### 1️⃣ **Clone the Repository**
+
+```sh
+git clone https://github.com/DeFiDev-sys/Weather_App.git
+cd weather-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2️⃣ **Install Dependencies**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm install  # or yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3️⃣ **Create Environment Variables**
 
-## Learn More
+Create a `.env.local` file in the root directory and add your WeatherAPI key:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+NEXT_PUBLIC_WEATHER_API_KEY=your_weather_api_key_here
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> Get your free API key from [WeatherAPI](https://www.weatherapi.com/).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4️⃣ **Run the Development Server**
 
-## Deploy on Vercel
+```sh
+npm run dev  # or yarn dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 5️⃣ **Build for Production**
+
+```sh
+npm run build && npm start  # or yarn build && yarn start
+```
+
+---
+
+## Project Structure 📂
+
+```
+/weather-app
+│── app/
+│   ├── api/
+│   │   ├── weatherApi/
+│   │   │   ├── route.ts  # API route for fetching weather data
+│   ├── (display)/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│── components/
+│   ├── UI/
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── Theme-Provider.tsx  # For the Dark Mode
+│   ├── theme-toggle.tsx  # Displays weather details
+│   ├── searchBar.tsx   # Allows user to enter a city manually
+│   ├── weatherCard.tsx   # Holds the form of the data displayed
+│── hooks/
+│   ├── useGeoLocation.ts   # Custom hook to get user location
+│── context/
+│   ├── weatherStore.tsx   # Zustand state management for weather data
+│── Screen/
+│   ├── weatherDisplay.tsx   # Display the weather data and all its functionalities
+│── styles/  # Tailwind CSS styles
+│── public/  # Static assets (icons, images, etc.)
+│── .env.local  # Environment variables
+│── package.json  # Dependencies and scripts
+│── README.md  # Project documentation
+```
+
+---
+
+## Deployment 🌍
+
+### **Deploy on Vercel** (Recommended for Next.js Apps)
+
+```sh
+npm install -g vercel  # Install Vercel CLI
+vercel  # Deploy the project
+```
+
+> Alternatively, deploy manually from [Vercel Dashboard](https://vercel.com/).
+
+---
+
+## API Endpoints 🌐
+
+| Method | Endpoint                                  | Description                           |
+| ------ | ----------------------------------------- | ------------------------------------- |
+| GET    | `/api/weatherApi?city=London`             | Fetch weather by city name            |
+| GET    | `/api/weatherApi?lat=51.5074&lon=-0.1278` | Fetch weather by latitude & longitude |
+
+---
+
+## Technologies Used 🛠️
+
+- **Next.js** (App Router)
+- **TypeScript (TSX)**
+- **Zustand** (State Management)
+- **Tailwind CSS** (Styling)
+- **Geolocation API** (Detect User Location)
+- **WeatherAPI** (Weather Data)
+
+---
+
+## License 📝
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
+## Author 💡
+
+Developed by **[Your Name]**. Feel free to reach out!
+
+🌐 **GitHub**: [your-username](https://github.com/your-username)  
+🐦 **Twitter**: [@your-handle](https://twitter.com/your-handle)  
+📧 **Email**: your-email@example.com
+
+---
+
+## Contributing 🤝
+
+Pull requests are welcome! If you'd like to contribute, please fork the repo and submit a PR.
+
+```sh
+git checkout -b feature-branch
+```
+
+Submit a **pull request** once your feature is complete!
