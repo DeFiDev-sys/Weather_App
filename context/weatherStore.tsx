@@ -1,24 +1,25 @@
 import { create } from "zustand";
 import { weatherState } from "@/hooks/difinition";
 import axios from "axios";
+import { useEffect } from "react";
 
-const getSavedData = () => {
-  if (typeof window !== undefined) {
-    const savedData = localStorage.getItem("weatherData");
-    return savedData ? JSON.parse(savedData) : null;
-  }
-  return null;
-};
+// const getSavedData = () => {
+//   if (typeof window !== "undefined") {
+//     const savedData = localStorage.getItem("weatherData");
+//     return savedData ? JSON.parse(savedData) : null;
+//   }
+//   return null;
+// };
 
 export const useWeatherState = create<weatherState>((set) => ({
   city: "",
-  weatherData: getSavedData(),
+  weatherData: null,
   setError: null,
   isLoading: false,
   isError: false,
 
   setCity: (city) => set({ city }),
-  
+
   fetchWeather: async (city) => {
     set({ isLoading: true });
 
@@ -26,7 +27,7 @@ export const useWeatherState = create<weatherState>((set) => ({
       const res = await axios.get(`/api/weatherApi?city=${city}`);
 
       set({ weatherData: res.data, isLoading: false, isError: false, setError: null });
-      if (typeof window !== undefined) {
+      if (typeof window !== "undefined") {
         localStorage.setItem("weatherData", JSON.stringify(res.data));
       }
     } catch (error) {
@@ -46,7 +47,7 @@ export const useWeatherState = create<weatherState>((set) => ({
 
       set({ weatherData: res.data, isLoading: false, isError: false, setError: null });
 
-      if (typeof window !== undefined) {
+      if (typeof window !== "undefined") {
         localStorage.setItem("weatherData", JSON.stringify(res.data));
       }
     } catch (error) {
@@ -58,3 +59,16 @@ export const useWeatherState = create<weatherState>((set) => ({
     }
   },
 }));
+
+export const useInitializeWeather = () => {
+  const setWeatherData = useWeatherState((state) => state.setCity);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedData = localStorage.getItem("weatherData");
+      if (savedData) {
+        setWeatherData(JSON.parse(savedData));
+      }
+    }
+  }, [setWeatherData]);
+};

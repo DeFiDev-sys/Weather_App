@@ -3,7 +3,7 @@
 
 import SearchBar from "@/components/SearchBar";
 import WeatherCard from "@/components/WeatherCard";
-import { useWeatherState } from "@/context/weatherStore";
+import { useInitializeWeather, useWeatherState } from "@/context/weatherStore";
 import { WeatherDataType } from "@/hooks/difinition";
 import { Key } from "react";
 import { BarLoader } from "react-spinners";
@@ -13,8 +13,10 @@ import { useTheme } from "next-themes";
 import { useGeoLocation } from "@/hooks/useGeoLocation";
 
 const WeatherDisplay = () => {
+  //check if the localstorage has the weatherData
+  useInitializeWeather();
+
   const { theme } = useTheme();
-  console.log(theme);
   const { weatherData, isLoading, setError, isError } = useWeatherState();
   const { locationError } = useGeoLocation();
 
