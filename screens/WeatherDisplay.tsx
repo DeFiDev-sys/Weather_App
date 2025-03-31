@@ -10,10 +10,14 @@ import { BarLoader } from "react-spinners";
 import { CloudOffIcon } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTheme } from "next-themes";
+import { useGeoLocation } from "@/hooks/useGeoLocation";
 
 const WeatherDisplay = () => {
-  const { weatherData, isLoading, setError, isError } = useWeatherState();
   const { theme } = useTheme();
+  console.log(theme);
+  const { weatherData, isLoading, setError, isError } = useWeatherState();
+  const { locationError } = useGeoLocation();
+
   return (
     <div className='min-h-dvh'>
       <SearchBar />
@@ -22,11 +26,13 @@ const WeatherDisplay = () => {
         <span className='flex justify-center  items-center my-52'>
           <BarLoader width={200} color={theme === "dark" ? "#ffffff" : "#000000"} />
         </span>
+      ) : locationError ? (
+        <p className='text-center flex justify-center  items-center my-52'>{locationError}</p>
       ) : isError ? (
         <p className='text-center flex justify-center  items-center my-52'>{setError}</p>
       ) : !weatherData ? (
         <div className='flex flex-col gap-2 justify-center items-center my-10'>
-          <CloudOffIcon size={100} /> <span>No Data found. Try again later.</span>
+          <CloudOffIcon size={100} /> <span>No Data found. 😥 Try again later.</span>
         </div>
       ) : (
         <div className='my-5 space-y-5 min-h-dvh'>

@@ -12,6 +12,7 @@ export interface weatherState {
   setError: string | null;
   setCity: (city: string) => void;
   fetchWeather: (city: string) => Promise<void>;
+  fetchWeatherByCoords:(latitude : number, longitude:number)=> Promise<void>
 }
 
 export interface WeatherDataType {
